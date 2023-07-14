@@ -19,20 +19,22 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        // console.log(userCredential)
+        navigation.navigate("Home");
       })
       .catch((error) => {
         console.log(error);
       });
   };
-  // useEffect(() => {
-  //   const unsub = onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       navigation.replace("Home");
-  //     } else {
-  //     }
-  //   });
-  //   return unsub;
-  // }, []);
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigation.replace("Home");
+      } else {
+      }
+    });
+    return unsub;
+  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -50,19 +52,17 @@ const Login = () => {
       <View className="w-2/3">
         <Input
           placeholder="Email"
-          autoFocus
           type="Email"
+          autoFocus
+          onChangeText={(text) => setEmail(text)}
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className=""
         />
         <Input
           placeholder="Password"
-          secureTextEntry
           type="Password"
+          secureTextEntry
+          onChangeText={(text) => setPassword(text)}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className=""
         />
         <Button
           title="Login"

@@ -15,7 +15,6 @@ const RegisterScreen = ({ navigation }) => {
 
   const register = async (e) => {
     e.preventDefault();
-    
 
     function update(authUser) {
       updateProfile(auth.currentUser, {
@@ -29,9 +28,7 @@ const RegisterScreen = ({ navigation }) => {
       .then((userCredential) => {
         updateProfile(auth.currentUser, {
           displayName: name,
-          photoUrl:
-            imageUrl ||
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH41aGz2eaeJbKuRNAawocn9ummGUZovlfGg&usqp=CAU",
+          photoUrl: imageUrl,
         }).then(() => console.log(auth.currentUser));
       })
       .catch((err) => alert(err));

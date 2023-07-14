@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { ListItem, Avatar } from "react-native-elements";
-import { ListItemContent } from "@rneui/base/dist/ListItem/ListItem.Content";
+
 
 const CustomListItem = ({id,chatName,enterChat}) => {
   return (
