@@ -3,49 +3,40 @@ import React, { useLayoutEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Button, Input, Text } from "react-native-elements";
 import { auth } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 // https://images7.alphacoders.com/714/714040.jpg
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("1@2.com");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState(null);
 
   const register = async (e) => {
     e.preventDefault();
+    
 
-    // try {
-    //   const res = await createUserWithEmailAndPassword(
-    //     auth,
-    //     email,
-    //     password,
-    //     imageUrl
-    //   );
-    //   console.log(res);
-    // } catch (error) {
-    //   alert(error.message);
-    // }
+    function update(authUser) {
+      updateProfile(auth.currentUser, {
+        displayName: name,
+        photoUrl:
+          imageUrl ||
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH41aGz2eaeJbKuRNAawocn9ummGUZovlfGg&usqp=CAU",
+      }).then(() => console.log(auth.currentUser));
+    }
     createUserWithEmailAndPassword(auth, email, password)
-      .then((authUser) => {
-        authUser.user.update({
+      .then((userCredential) => {
+        updateProfile(auth.currentUser, {
           displayName: name,
           photoUrl:
             imageUrl ||
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH41aGz2eaeJbKuRNAawocn9ummGUZovlfGg&usqp=CAU",
-        });
-        console.log(authUser)
+        }).then(() => console.log(auth.currentUser));
       })
       .catch((err) => alert(err));
   };
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerBackTitle: "Back to Login",
-      //   headerTitle: "login",
-    });
-  }, [navigation]);
   return (
     <KeyboardAvoidingView
       behavior="padding"

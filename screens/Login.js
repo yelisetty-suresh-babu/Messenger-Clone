@@ -4,24 +4,35 @@ import { Button, Input, Image } from "react-native-elements";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import { auth } from "../firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const signIn = () => {};
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
   const navigation = useNavigation();
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        navigation.replace("Home");
-      } else {
-      }
-    });
-    return unsub;
-  }, []);
+  const signIn = () => {
+    // console.log(password);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  // useEffect(() => {
+  //   const unsub = onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       navigation.replace("Home");
+  //     } else {
+  //     }
+  //   });
+  //   return unsub;
+  // }, []);
 
   return (
     <KeyboardAvoidingView
@@ -42,7 +53,7 @@ const Login = () => {
           autoFocus
           type="Email"
           value={email}
-          onChange={(text) => setEmail(text)}
+          onChange={(e) => setEmail(e.target.value)}
           className=""
         />
         <Input
@@ -50,7 +61,7 @@ const Login = () => {
           secureTextEntry
           type="Password"
           value={password}
-          onChange={(text) => setPassword(text)}
+          onChange={(e) => setPassword(e.target.value)}
           className=""
         />
         <Button
