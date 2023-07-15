@@ -8,10 +8,10 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 // https://images7.alphacoders.com/714/714040.jpg
 
 const RegisterScreen = ({ navigation }) => {
-  const [name, setName] = useState("");
+  const [name, setName] = useState({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState({});
 
   const register = async (e) => {
     e.preventDefault();
@@ -27,8 +27,8 @@ const RegisterScreen = ({ navigation }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         updateProfile(auth.currentUser, {
-          displayName: name,
-          photoUrl: imageUrl,
+          displayName: name.value,
+          photoUrl: imageUrl.value,
         }).then(() => console.log(auth.currentUser));
       })
       .catch((err) => alert(err));
@@ -48,8 +48,8 @@ const RegisterScreen = ({ navigation }) => {
           placeholder="FullName"
           type="text"
           autoFocus
-          onChangeText={(text) => setName(text)}
-          value={name}
+          onChangeText={(e) => setName({ value: e })}
+          value={name.value}
         />
         <Input
           placeholder="Email"
@@ -67,8 +67,8 @@ const RegisterScreen = ({ navigation }) => {
         <Input
           placeholder="Profile Picture Url (optional)"
           type="text"
-          onChangeText={(text) => setImageUrl(text)}
-          value={imageUrl}
+          onChangeText={(e) => setImageUrl({ value: e })}
+          value={imageUrl.value}
           onSubmitEditing={register}
         />
         <Button
