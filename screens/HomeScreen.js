@@ -36,11 +36,9 @@ const HomeScreen = ({ navigation }) => {
         const temp = [];
         doc.forEach((data) => temp.push({ ...data.data(), id: data.id }));
         setChats(temp);
-        console.log(chats);
       }
     );
     return unsub;
-    // db.collections("chats").onSnapshot((doc) => console.log(doc));
   }, []);
 
   useLayoutEffect(() => {
@@ -51,7 +49,7 @@ const HomeScreen = ({ navigation }) => {
           <TouchableOpacity
             activeOpacity={0.5}
             onPress={Signout}
-            className="hover:cursor-pointer"
+            className="flex-row items-center "
           >
             <Avatar
               rounded
@@ -62,11 +60,14 @@ const HomeScreen = ({ navigation }) => {
                   "https://images7.alphacoders.com/714/714040.jpg",
               }}
             />
+            <Text className="text-white mx-3 text-xl font-bold">
+              {auth.currentUser.displayName}
+            </Text>
           </TouchableOpacity>
         </View>
       ),
       headerRight: () => (
-        <View className="flex-row gap-x-2">
+        <View className="flex-row gap-x-2  ">
           <TouchableOpacity activeOpacity={0.5}>
             <AntDesign name="camerao" size={24} color={"white"} />
           </TouchableOpacity>
@@ -83,7 +84,6 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   const enterChat = (id, chatName) => {
-    // console.log("enter chat")
     navigation.navigate("Chat", {
       id: id,
       chatName: chatName,
