@@ -54,12 +54,12 @@ const HomeScreen = ({ navigation }) => {
             <Avatar
               rounded
               source={{
-                uri:
-                  // auth.currentUser.photoURL,
-                  // ||
-                  "https://images7.alphacoders.com/714/714040.jpg",
+                uri: auth.currentUser.photoURL,
+                // ||
+                // "https://images7.alphacoders.com/714/714040.jpg",
               }}
             />
+
             <Text className="text-white mx-3 text-xl font-bold">
               {auth.currentUser.displayName}
             </Text>

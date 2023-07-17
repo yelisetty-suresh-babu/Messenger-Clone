@@ -20,8 +20,9 @@ const RegisterScreen = ({ navigation }) => {
       .then((userCredential) => {
         updateProfile(auth.currentUser, {
           displayName: name,
-          photoUrl:
-            imageUrl || "https://images7.alphacoders.com/714/714040.jpg",
+          photoURL:
+            imageUrl
+            //  || "https://images7.alphacoders.com/714/714040.jpg",
         });
       })
       .catch((err) => alert(err));

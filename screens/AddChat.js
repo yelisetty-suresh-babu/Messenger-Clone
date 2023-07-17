@@ -21,7 +21,7 @@ const AddChat = ({ navigation }) => {
         chatName: name.value,
       }).then(() => {
         navigation.goBack();
-        console.log(docRef);
+
       });
     } catch (error) {
       console.log(error);
@@ -41,7 +41,7 @@ const AddChat = ({ navigation }) => {
         classname="w-[100px] "
       />
 
-      <Button title="create a new chat" onPress={createChat} />
+    <Button disabled={!name} title="create a new chat" onPress={createChat} />
     </View>
   );
 };

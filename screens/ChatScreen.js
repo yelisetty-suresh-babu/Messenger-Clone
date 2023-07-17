@@ -13,12 +13,7 @@ import {
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Avatar } from "react-native-elements";
-import {
-  AntDesign,
-  SimpleLineIcons,
-  Ionicons,
-  FontAwesome,
-} from "@expo/vector-icons";
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { db, auth } from "../firebase";
 import {
   addDoc,
@@ -83,7 +78,7 @@ const ChatScreen = ({ navigation, route }) => {
       message: input,
       displayName: auth.currentUser.displayName,
       email: auth.currentUser.email,
-      photoUrl: auth.currentUser.photoURL,
+      photoURL: auth.currentUser.photoURL,
     });
 
     setInput("");
@@ -136,9 +131,8 @@ const ChatScreen = ({ navigation, route }) => {
                   <View key={id} style={styles.reciever} className="m-2">
                     <Avatar
                       source={{
-                        uri:
-                          data.photoURL ||
-                          "https://pbs.twimg.com/media/FE6-Y6JUUAgpjpW?format=jpg&name=4096x4096",
+                        uri: auth.currentUser.photoURL,
+                        // ||"https://pbs.twimg.com/media/FE6-Y6JUUAgpjpW?format=jpg&name=4096x4096",
                       }}
                       rounded
                       size={30}
@@ -167,6 +161,7 @@ const ChatScreen = ({ navigation, route }) => {
                         bottom: -15,
                         left: -5,
                       }}
+                      source={{ uri: data.photoURL }}
                     />
                     <Text style={styles.senderText}>{data.message}</Text>
                     <Text style={styles.senderName}>{data.displayName}</Text>

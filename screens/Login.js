@@ -15,11 +15,10 @@ const Login = () => {
   const [password, setPassword] = useState(null);
   const navigation = useNavigation();
   const signIn = () => {
-    // console.log(password);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        // console.log(userCredential)
+
         navigation.navigate("Home");
       })
       .catch((error) => {
